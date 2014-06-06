@@ -1,10 +1,15 @@
 $(document).ready(function () {
     // Set initial text
     $('[data-boris]').text('Loading from BORIS...');
-    $('[data-boris]').iwiboris();
+
+
+    $.getScript('//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js', function(){
+        $.getScript('//cdnjs.cloudflare.com/ajax/libs/underscore.string/2.3.3/underscore.string.min.js', function(){
+            $('[data-boris]').iwiboris();
+        });
+    });
 });
-$.getScript('//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js');
-$.getScript('//cdnjs.cloudflare.com/ajax/libs/underscore.string/2.3.3/underscore.string.min.js');
+
 $.fn.exists = function () {
     return this.length > 0;
 };
@@ -20,7 +25,6 @@ function compactNames(names) {
 }
 
 $.fn.iwiboris = function () {
-
     $('head').append('<link rel="stylesheet" href="https://raw.githubusercontent.com/KeeTraxx/boris-loader/master/boris.css" type="text/css" />');
     var $el = $(this);
 
