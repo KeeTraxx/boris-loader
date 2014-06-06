@@ -1,0 +1,19 @@
+#contentFakultaet .boris ul {
+    list-style: none;
+    margin: 5px;
+    padding: 0;
+}
+
+#contentFakultaet .boris ul li {
+    margin-bottom: 8px;
+}
+
+.series, .event_title, .publication {
+    font-style: italic;
+}
+
+#contentFakultaet .boris ul.yearnav li {
+    float: left;
+    margin-right: 5px;
+}
+
