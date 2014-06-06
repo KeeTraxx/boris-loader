@@ -32,7 +32,9 @@ $.fn.iwiboris = function () {
 
         var borisfilter = $el.attr('data-boris-filter') ? new RegExp($el.attr('data-boris-filter'), 'i') : null;
         $el.append($ul);
-        data.sort(dynamicSort('-date'));
+        data = _.sortBy(data, function(d){
+            return d.date;
+        });
         $.each(data, function (i, publication) {
 
             if (publication.type == "conference_item") {
@@ -43,9 +45,6 @@ $.fn.iwiboris = function () {
             if (borisfilter && !publication.extended_type.match(borisfilter)) {
                 return;
             }
-
-            console.log(publication.extended_type);
-
 
             publication.compact_contributors = compactNames(publication.contributors).join(', ');
             publication.compact_editors = compactNames(publication.editors).join(', ');
@@ -114,7 +113,6 @@ $.fn.iwiboris = function () {
                 case "conference_speech":
                 case "conference_paper":
                 case "conference_abstract":
-                    console.log(publication);
                     html += _.string.sprintf('<span class="authors">%s</span> (<span class="year">%s</span>). <span class="title">%s</span>. <span class="event_title">%s</span>, <span class="event_location">%s</span>. <a href="%s">[&nbsp;link&nbsp;]</a>',
                         publication.compact_creators,
                         publication.year,
@@ -140,54 +138,6 @@ $.fn.iwiboris = function () {
             }
 
             $li.html(html);
-
-            /*
-
-             $li.append('<span class="authors">'+contributors.join(', ')+'</span>');
-
-             var year = String(publication.date).match(/2\d{3}/)[0];
-             $li.append('<span class="year" data-year="'+(  )+'"> ('+year+')</span>. ');
-             $li.append('<span class="title">'+publication.title[0].text+'</span>. ');
-
-             if (publication.type.match(/book/) ) {
-             var editors = [];
-             if (publication.type == "book_section") {
-             $.each( publication.editors, function(i, editor){
-             if ( editor.name.family != null ) {
-             editors.push(editor.name.family+', ' + ( editor.name.given ? editor.name.given[0] : '' ) +'.');
-             }
-             });
-             $li.append('In <span title="book_editors">'+editors.join(', ')+' (Eds.) </span>, ');
-             $li.append('<span title="book_title">'+publication.book_title+'</span>, ');
-
-             publication.pagerange ? $li.append('<span title="pagerange">(pp. '+publication.pagerange+')</span>. ') : '';
-             }
-             publication.place_of_pub ? $li.append('<span title="place_of_pub">'+publication.place_of_pub+'</span>: ') : '';
-             publication.publisher ? $li.append('<span title="place_of_pub">'+publication.publisher+'</span>. ') : '';
-
-             } else {
-             publication.event_title ? $li.append('<span title="event_title">'+publication.event_title+'</span>') : '';
-
-             if ( publication.type.match(/conference_item|report/) ) {
-             publication.event_title && $li.append('. ');
-             } else {
-             publication.event_title && $li.append(', ');
-             }
-
-             publication.publication ? $li.append(', <span title="publication">'+publication.publication+'</span>') : '';
-             publication.volume ? $li.append(', <span title="volume">'+publication.volume+'</span> ') : '';
-             publication.number ? $li.append('<span title="number">('+publication.number+')</span>') : '';
-
-             publication.pagerange ? $li.append(', <span title="pagerange">('+publication.pagerange+')</span>. ') : '';
-             }
-
-             var $a = $('<a/>');
-             $a.attr('href',publication.uri);
-             $a.text('[link] ');
-             $li.append($a);
-
-             console.log(publication);
-             */
             $ul.append($li);
         });
 
@@ -200,7 +150,6 @@ $.fn.iwiboris = function () {
 
         console.log(_.uniq(_.pluck(data, 'extended_type')).sort());
 
-        //var years = [];
         $ul = $('<ul class="yearnav"/>');
         _.map(_.compact(_.uniq(_.pluck(data, 'yeargroup'))).sort(), function (d) {
             $ul.prepend('<li data-show="' + d + '"><a href="#">[ ' + d + ' ]</a></li>');
@@ -217,15 +166,3 @@ $.fn.iwiboris = function () {
 
     });
 };
-
-function dynamicSort(property) {
-    var sortOrder = 1;
-    if (property[0] === "-") {
-        sortOrder = -1;
-        property = property.substr(1);
-    }
-    return function (a, b) {
-        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-        return result * sortOrder;
-    }
-}
