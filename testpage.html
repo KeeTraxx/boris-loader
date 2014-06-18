@@ -22,25 +22,51 @@
     <script type="application/javascript">
         angular.module('boris', [])
                 .controller('BorisController', ['$scope', function ($scope) {
-                    $scope.load = function (url) {
-                        if ( !url ) return;
+                    $scope.$watch('url', function (url) {
+                        if (!url) return;
                         var container = $('#contentFakultaet');
                         container.html('');
-                        container.html('<div data-boris="'+url+'"/>');
+                        var filter = $scope.filter ? 'data-boris-filter="' + $scope.filter + '"' : '';
+                        container.html('<div data-boris="' + url + '" ' + filter + ' />');
                         $('[data-boris]').text('Loading from BORIS...');
-                        $('[data-boris]').iwiboris();
-
-                    }
+                        $('[data-boris]').iwiboris(function (err, data) {
+                            $scope.types = _.uniq(_.compact(_.pluck(data, 'extended_type')));
+                            $scope.$apply();
+                        });
+                    });
                 }]);
     </script>
 </head>
 <body>
 
 <div class="container" ng-controller="BorisController">
-    <label for="url">URL to load</label>
-    <input id="url" class="form-control" type="text" ng-model="url" ng-change="load(url)"/>
+    <div class="row">
+        <div class="col-md-8">
+            <h2>BORIS Loader Testpage</h2>
+            <div class="form-group">
+                <label for="url">URL to load</label>
+                <input id="url" class="form-control" type="text" ng-model="url"/>
 
-    <div id="contentFakultaet"></div>
+            </div>
+            <div class="form-group">
+                <label for="filter">data-boris-filter</label>
+                <input id="filter" class="form-control" type="text" ng-model="filter"/>
+            </div>
+
+            <button ng-click="url = 'http://boris.unibe.ch/cgi/exportview/divisions/DCD5A442BB9CE17DE0405C82790C4DE2/JSON/DCD5A442BB9CE17DE0405C82790C4DE2.js'"
+                    class="btn btn-primary">Bla! Just load every IWI publication
+            </button>
+            <hr>
+            <div id="contentFakultaet"></div>
+        </div>
+        <div class="col-md-4">
+            <h2>Metadata</h2>
+            <h3>Types found:</h3>
+            <ul>
+                <li ng-repeat="type in types">{{type}}</li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 

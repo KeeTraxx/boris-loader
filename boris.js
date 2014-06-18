@@ -23,7 +23,7 @@ function compactNames(names) {
     }));
 }
 
-$.fn.iwiboris = function () {
+$.fn.iwiboris = function (callback) {
     $('head').append('<link rel="stylesheet" href="//keetraxx.github.io/boris-loader/boris.css" type="text/css" />');
     var $el = $(this);
 
@@ -38,6 +38,7 @@ $.fn.iwiboris = function () {
         data = _.sortBy(data, function(d){
             return d.date;
         });
+
         $.each(data, function (i, publication) {
 
             if (publication.type == "conference_item") {
@@ -142,6 +143,9 @@ $.fn.iwiboris = function () {
 
             $li.html(html);
             $ul.append($li);
+            if ( callback ) {
+                callback(null, data);
+            }
         });
 
         tree = {};
