@@ -136,6 +136,15 @@ $.fn.iwiboris = function (callback) {
                         publication.uri
                     );
                     break;
+                case "thesis_dissertation":
+                    html += _.string.sprintf('<span class="authors">%s</span> (<span class="year">%s</span>). <span class="title">%s</span> (Doctoral dissertation). <span class="institution">%s</span>. <a href="%s">[&nbsp;link&nbsp;]</a>',
+                        publication.compact_creators,
+                        publication.year,
+                        publication.title[0].text,
+                        publication.institution,
+                        publication.uri
+                    );
+                    break;
                 default:
                     console.log(publication.extended_type, 'not supported yet...?', publication);
                     break;
