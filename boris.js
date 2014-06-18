@@ -10,10 +10,6 @@ $(document).ready(function () {
     });
 });
 
-$.fn.exists = function () {
-    return this.length > 0;
-};
-
 function compactNames(names) {
     return _.compact(_.map(names, function (d) {
         if (d.disp_name && d.disp_name.family) {
