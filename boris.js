@@ -138,7 +138,7 @@ $.fn.iwiboris = function (callback) {
                         publication.compact_creators,
                         publication.year,
                         publication.title[0].text,
-                        publication.institution,
+                        publication.institution || '',
                         publication.uri
                     );
                     break;
