@@ -2,6 +2,7 @@
     list-style: none;
     margin: 5px;
     padding: 0;
+    clear:both;
 }
 
 #contentFakultaet .boris ul li {
