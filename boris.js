@@ -114,12 +114,11 @@ $.fn.iwiboris = function (callback) {
                 case "conference_speech":
                 case "conference_paper":
                 case "conference_abstract":
-                    html += _.string.sprintf('<span class="authors">%s</span> (<span class="year">%s</span>). <span class="title">%s</span>. <span class="event_title">%s</span>, <span class="event_location">%s</span>. <a href="%s">[&nbsp;link&nbsp;]</a>',
+                    html += _.string.sprintf('<span class="authors">%s</span> (<span class="year">%s</span>). <span class="title">%s</span>. <span class="event_title">%s</span>. <a href="%s">[&nbsp;link&nbsp;]</a>',
                         publication.compact_creators,
                         publication.year,
                         publication.title[0].text,
                         publication.event_title,
-                        publication.event_location,
                         publication.uri
                     );
                     break;
