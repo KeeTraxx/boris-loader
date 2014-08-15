@@ -63,20 +63,20 @@ $.fn.iwiboris = function (callback) {
             switch (publication.extended_type) {
                 case "article_contribution":
                 case "article_journal":
-                    html += _.string.sprintf('<span class="authors">%s</span> (<span class="year">%s</span>). <span class="title">%s</span>. <span class="publication">%s</span> <span class="volume">%s</span> <span class="number">%s</span> <span class="pagerange">%s</span> <a href="%s">[&nbsp;link&nbsp;]</a>',
-                        publication.compact_creators,
+                    html += _.string.sprintf('<span class="authors">%s</span> (<span class="year">%s</span>). <span class="title">%s</span>. <span class="publication">%s</span><span class="volume">%s</span><span class="number">%s</span><span class="pagerange">%s</span> <a href="%s">[&nbsp;link&nbsp;]</a>',
+                        publication.compact_creators ? publication.compact_creators : publication.compact_contributors,
                         publication.year,
                         publication.title[0].text,
-                            publication.publication + ', ',
-                        publication.volume ? publication.volume : '',
-                        publication.number ? '(' + publication.number + '), ' : ', ',
-                        publication.pagerange,
+                        publication.publication + ', ',
+                        publication.volume ? ' ' + publication.volume : '',
+                        publication.number ? ' (' + publication.number + ')' : '',
+                        publication.pagerange ? ', pp. ' + publication.pagerange + '.' : '.',
                         publication.uri
                     );
                     break;
                 case "book_contribution":
                     html += _.string.sprintf('<span class="authors">%s</span> (<span class="year">%s</span>). <span class="title">%s</span>. In <span class="series">%s</span> <span class="place_of_pub">%s</span><span class="publisher">%s</span> <a href="%s">[&nbsp;link&nbsp;]</a>',
-                        publication.compact_creators,
+                        publication.compact_creators ? publication.compact_creators : publication.compact_contributors,
                         publication.year,
                         publication.title[0].text,
                         publication.series,
@@ -87,8 +87,10 @@ $.fn.iwiboris = function (callback) {
                     break;
                 case "book_ed_volume":
                 case "book_monograph":
+                case "book_textbook":
+                case "journal_series_series":
                     html += _.string.sprintf('<span class="authors">%s</span> (<span class="year">%s</span>). <span class="title">%s</span>. <span class="place_of_pub">%s</span><span class="publisher">%s</span> <a href="%s">[&nbsp;link&nbsp;]</a>',
-                        publication.compact_creators,
+                        publication.compact_creators ? publication.compact_creators : publication.compact_contributors,
                         publication.year,
                         publication.title[0].text,
                         publication.place_of_pub ? publication.place_of_pub + ': ' : '',
@@ -100,7 +102,7 @@ $.fn.iwiboris = function (callback) {
                 case "book_section_contribution":
                 case "book_section_encyclopedia":
                     html += _.string.sprintf('<span class="authors">%s</span> (<span class="year">%s</span>). <span class="title">%s</span>. In <span class="editors">%s</span>, <span class="book_title">%s</span> <span class="pagerange">%s</span> <span class="place_of_pub">%s</span><span class="publisher">%s</span>. <a href="%s">[&nbsp;link&nbsp;]</a>',
-                        publication.compact_creators,
+                        publication.compact_creators ? publication.compact_creators : publication.compact_contributors,
                         publication.year,
                         publication.title[0].text,
                             publication.compact_editors.length > 0 ? publication.compact_editors + (publication.editors.length > 1 ? ' (Eds.)' : ' (Ed.)') : '',
@@ -114,8 +116,9 @@ $.fn.iwiboris = function (callback) {
                 case "conference_speech":
                 case "conference_paper":
                 case "conference_abstract":
+                case "conference_undefined":
                     html += _.string.sprintf('<span class="authors">%s</span> (<span class="year">%s</span>). <span class="title">%s</span>. <span class="event_title">%s</span><span class="event_location">%s</span>. <a href="%s">[&nbsp;link&nbsp;]</a>',
-                        publication.compact_creators,
+                        publication.compact_creators ? publication.compact_creators : publication.compact_contributors,
                         publication.year,
                         publication.title[0].text,
                         publication.event_title,
@@ -125,7 +128,7 @@ $.fn.iwiboris = function (callback) {
                     break;
                 case "report_report":
                     html += _.string.sprintf('<span class="authors">%s</span> (<span class="year">%s</span>). <span class="title">%s</span>. <span class="place_of_pub">%s</span><span class="publisher">%s</span> <a href="%s">[&nbsp;link&nbsp;]</a>',
-                        publication.compact_creators,
+                        publication.compact_creators ? publication.compact_creators : publication.compact_contributors,
                         publication.year,
                         publication.title[0].text,
                         publication.place_of_pub ? publication.place_of_pub + ': ' : '',
@@ -135,10 +138,29 @@ $.fn.iwiboris = function (callback) {
                     break;
                 case "thesis_dissertation":
                     html += _.string.sprintf('<span class="authors">%s</span> (<span class="year">%s</span>). <span class="title">%s</span> (Doctoral dissertation). <span class="institution">%s</span>. <a href="%s">[&nbsp;link&nbsp;]</a>',
-                        publication.compact_creators,
+                        publication.compact_creators ? publication.compact_creators : publication.compact_contributors,
                         publication.year,
                         publication.title[0].text,
                         publication.institution,
+                        publication.uri
+                    );
+                    break;
+                case "magazine_article_undefined":
+                    html += _.string.sprintf('<span class="authors">%s</span> (<span class="year">%s</span>). <span class="title">%s</span>. <span class="publication">%s</span>. <a href="%s">[&nbsp;link&nbsp;]</a>',
+                        publication.compact_creators ? publication.compact_creators : publication.compact_contributors,
+                        publication.year,
+                        publication.title[0].text,
+                        publication.publication,
+                        publication.uri
+                    );
+                    break;
+                case "working_paper_undefined":
+                    html += _.string.sprintf('<span class="authors">%s</span> (<span class="year">%s</span>). <span class="title">%s</span>. Working paper<span class="workingPaperNumber">%s</span><span class="publisher">%s</span>. <a href="%s">[&nbsp;link&nbsp;]</a>',
+                        publication.compact_creators ? publication.compact_creators : publication.compact_contributors,
+                        publication.year,
+                        publication.title[0].text,
+                        publication.volume ? ' No. ' + publication.volume : '',
+                        publication.publisher ? ', ' + publication.publisher : '',
                         publication.uri
                     );
                     break;
