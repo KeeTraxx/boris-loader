@@ -197,8 +197,8 @@ $.fn.iwiboris = function (callback) {
         $('.yearnav li').click(function (ev) {
             ev.preventDefault();
             var year = $(this).attr('data-show');
-            $('[data-year]').hide();
-            $('[data-year="' + year + '"]').show();
+            $el.select('[data-year]').hide();
+            $el.select('[data-year="' + year + '"]').show();
         }).first().click();
 
     });
