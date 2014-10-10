@@ -2,6 +2,8 @@ $(document).ready(function () {
     // Set initial text
     $('[data-boris]').text('Loading from BORIS...');
 
+    $('head').append('<link rel="stylesheet" href="//keetraxx.github.io/boris-loader/boris.css" type="text/css" />');
+
     // Load external scripts
     $.getScript('//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js', function(){
         $.getScript('//cdnjs.cloudflare.com/ajax/libs/underscore.string/2.3.3/underscore.string.min.js', function(){
@@ -21,13 +23,13 @@ function compactNames(names) {
 }
 
 $.fn.iwiboris = function (callback) {
-    $('head').append('<link rel="stylesheet" href="//keetraxx.github.io/boris-loader/boris.css" type="text/css" />');
+
     var $el = $(this);
 
     var borisurl = $el.attr('data-boris');
     var $ul = $('<ul/>');
     $.getJSON(borisurl + '?callback=?', function (data) {
-        $('[data-boris]').text('');
+        $el.text('');
         $el.addClass('boris');
 
         var borisfilter = $el.attr('data-boris-filter') ? new RegExp($el.attr('data-boris-filter'), 'i') : null;
