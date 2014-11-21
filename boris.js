@@ -31,23 +31,40 @@ $.fn.iwiboris = function (callback) {
         $.getJSON(borisurl + '?callback=?', function (data) {
             $el.text('');
             $el.addClass('boris');
-
-            var borisfilter = $el.attr('data-boris-filter') ? new RegExp($el.attr('data-boris-filter'), 'i') : null;
             $el.append($ul);
             data = _.sortBy(data, function(d){
                 return d.date;
             });
 
-            $.each(data, function (i, publication) {
-
+            _.map(data, function(publication) {
                 if (publication.type == "conference_item") {
                     publication.type = "conference";
                 }
-
                 publication.extended_type = publication.type + '_' + publication[publication.type + '_type'];
-                if (borisfilter && !publication.extended_type.match(borisfilter)) {
-                    return;
-                }
+                return publication;
+            });
+
+            // filter by type
+            var borisfilter = $el.attr('data-boris-filter') ? new RegExp($el.attr('data-boris-filter'), 'i') : null;
+
+            if (borisfilter) {
+                data = _.filter(data, function(publication){
+                    return publication.extended_type.match(borisfilter);
+                });
+            }
+
+            // filter by project
+            var projectfilter = $el.attr('data-boris-project') ? $el.attr('data-boris-project' ) : null;
+
+            if (projectfilter) {
+                data = _.filter(data, function(publication) {
+                    return _.find( publication.projects, function(project){
+                        return project.id == parseInt( projectfilter );
+                    });
+                })
+            }
+
+            $.each(data, function (i, publication) {
 
                 publication.compact_contributors = compactNames(publication.contributors).join(', ');
                 publication.compact_editors = compactNames(publication.editors).join(', ');

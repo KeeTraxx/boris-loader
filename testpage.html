@@ -27,7 +27,8 @@
                         var container = $('#contentFakultaet');
                         container.html('');
                         var filter = $scope.filter ? 'data-boris-filter="' + $scope.filter + '"' : '';
-                        container.html('<div data-boris="' + url + '" ' + filter + ' />');
+                        var project = $scope.project ? 'data-boris-project="' + $scope.project + '"' : '';
+                        container.html('<div data-boris="' + url + '" ' + filter + ' '+project+' />');
                         $('[data-boris]').text('Loading from BORIS...');
                         $('[data-boris]').iwiboris(function (err, data) {
                             $scope.types = _.uniq(_.compact(_.pluck(data, 'extended_type')));
@@ -51,6 +52,11 @@
             <div class="form-group">
                 <label for="filter">data-boris-filter (enter here stuff from "types found" in metadata)</label>
                 <input id="filter" class="form-control" type="text" ng-model="filter"/>
+            </div>
+
+            <div class="form-group">
+                <label for="project">data-boris-project (enter here stuff from "types found" in metadata)</label>
+                <input id="project" class="form-control" type="text" ng-model="project"/>
             </div>
 
             <button ng-click="url = 'http://boris.unibe.ch/cgi/exportview/divisions/DCD5A442BB9CE17DE0405C82790C4DE2/JSON/DCD5A442BB9CE17DE0405C82790C4DE2.js'"
