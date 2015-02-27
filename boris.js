@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('head').append('<link rel="stylesheet" href="//cdn.rawgit.com/keetraxx/boris-loader/zms3/boris.css" type="text/css" />');
+    $('head').append('<link rel="stylesheet" href="//'+(window.borisdev ? '' : 'cdn.')+'rawgit.com/keetraxx/boris-loader/zms3/boris.css" type="text/css" />');
 
     $.fn.iwiboris = function (callback) {
         return this.each(function(){
