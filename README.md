@@ -15,4 +15,4 @@ Important Information
 ---------------------
 You need to insert the snipped in HTML mode!
 
-![alt tag](//raw.github.com/keetraxx/boris-loader/zms3/help.png)
+![alt tag](https://raw.github.com/keetraxx/boris-loader/zms3/help.png)
