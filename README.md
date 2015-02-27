@@ -6,6 +6,7 @@ Display from publication database BORIS
 Usage
 -----
 Include this HTML javascript snippet somewhere onto your page.
+
     <dtml-let html="readhtml2('http://cdn.rawgit.com/keetraxx/boris-loader/zms3/boris-dev.html')"><dtml-var html></dtml-var></dtml-let>
     <div data-boris="//boris.unibe.ch/cgi/exportview/divisions/DCD5A442BB9CE17DE0405C82790C4DE2/JSON/DCD5A442BB9CE17DE0405C82790C4DE2.js"></div>
 
