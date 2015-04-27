@@ -1,11 +1,11 @@
-#contentFakultaet .boris ul {
+ul.yearnav {
     list-style: none;
     margin: 5px;
     padding: 0;
     clear:both;
 }
 
-#contentFakultaet .boris ul li {
+ul.yearnav li.yearnav {
     margin-bottom: 8px;
 }
 
@@ -13,7 +13,7 @@
     font-style: italic;
 }
 
-#contentFakultaet .boris ul.yearnav li {
+ul.yearnav li.yearnav {
     float: left;
     margin-right: 5px;
 }
@@ -21,3 +21,4 @@
 #content .page-content {
     min-height: 800px;
 }
+
