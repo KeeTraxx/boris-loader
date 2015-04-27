@@ -5,10 +5,6 @@ ul.yearnav.inline {
     clear:both;
 }
 
-ul.yearnav li.yearnav {
-    margin-bottom: 8px;
-}
-
 .series, .event_title, .publication {
     font-style: italic;
 }
