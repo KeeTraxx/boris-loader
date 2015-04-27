@@ -179,13 +179,12 @@ $(document).ready(function () {
                     tree[d.extended_type].push(d);
                 });
 
-                console.log(_.uniq(_.pluck(data, 'extended_type')).sort());
-
                 if ($('ul.level-2.open').length > 0) {
                     $ul = $('ul.level-2.open');
                 } else {
                     $ul = $('<ul>');
                     $el.prepend($ul);
+                    $ul.addClass('inline');
                 }
 
                 $ul.addClass('yearnav');

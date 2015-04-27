@@ -1,4 +1,4 @@
-ul.yearnav {
+ul.yearnav.inline {
     list-style: none;
     margin: 5px;
     padding: 0;
@@ -13,7 +13,7 @@ ul.yearnav li.yearnav {
     font-style: italic;
 }
 
-ul.yearnav li.yearnav {
+ul.yearnav.inline li.yearnav {
     float: left;
     margin-right: 5px;
 }
