@@ -181,7 +181,15 @@ $(document).ready(function () {
 
                 console.log(_.uniq(_.pluck(data, 'extended_type')).sort());
 
-                $ul = $('<ul class="yearnav"/>');
+                if ( $('ul.level-2.open').length > 0  ) {
+                    $ul = $('ul.level-2.open');
+                } else {
+                    $ul = $('<ul>');
+                    $el.prepend($ul);
+                }
+
+                $ul.addClass('yearnav');
+
                 _.map(_.compact(_.uniq(_.pluck(data, 'yeargroup'))).sort().reverse(), function (d) {
                     var $li = $('<li class="yearnav" data-show="' + d + '"><a href="#">[ ' + d + ' ]</a></li>');
                     $li.click(function (ev) {
@@ -190,15 +198,14 @@ $(document).ready(function () {
                         $el.find('[data-year]').hide();
                         $el.find('[data-year="' + year + '"]').show();
                     });
-                    //$ul.prepend($li);
-                    $('ul.level-2.open').addClass('.yearnav').append($li);
+                    $ul.append($li);
                 });
 
                 //$el.prepend($ul);
 
                 //$('ul.level-2.open').append($ul);
 
-                $('ul.level-2.open li.yearnav').first().click();
+                $ul.children().first().click();
                 if ( callback ) {
                     callback(null, data);
                 }
