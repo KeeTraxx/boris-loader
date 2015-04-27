@@ -1,9 +1,9 @@
 $(document).ready(function () {
 
-    $('head').append('<link rel="stylesheet" href="//'+(window.borisdev ? '' : 'cdn.')+'rawgit.com/keetraxx/boris-loader/zms3/boris.css" type="text/css" />');
+    $('head').append('<link rel="stylesheet" href="//' + (window.borisdev ? '' : 'cdn.') + 'rawgit.com/keetraxx/boris-loader/zms3/boris.css" type="text/css" />');
 
     $.fn.iwiboris = function (callback) {
-        return this.each(function(){
+        return this.each(function () {
             var $el = $(this);
 
             var borisurl = $el.attr('data-boris');
@@ -12,11 +12,11 @@ $(document).ready(function () {
                 $el.text('');
                 $el.addClass('boris');
                 $el.append($ul);
-                data = _.sortBy(data, function(d){
+                data = _.sortBy(data, function (d) {
                     return d.date;
                 });
 
-                _.map(data, function(publication) {
+                _.map(data, function (publication) {
                     if (publication.type == "conference_item") {
                         publication.type = "conference";
                     }
@@ -28,18 +28,18 @@ $(document).ready(function () {
                 var borisfilter = $el.attr('data-boris-filter') ? new RegExp($el.attr('data-boris-filter'), 'i') : null;
 
                 if (borisfilter) {
-                    data = _.filter(data, function(publication){
+                    data = _.filter(data, function (publication) {
                         return publication.extended_type.match(borisfilter);
                     });
                 }
 
                 // filter by project
-                var projectfilter = $el.attr('data-boris-project') ? $el.attr('data-boris-project' ) : null;
+                var projectfilter = $el.attr('data-boris-project') ? $el.attr('data-boris-project') : null;
 
                 if (projectfilter) {
-                    data = _.filter(data, function(publication) {
-                        return _.find( publication.projects, function(project){
-                            return project.id == parseInt( projectfilter );
+                    data = _.filter(data, function (publication) {
+                        return _.find(publication.projects, function (project) {
+                            return project.id == parseInt(projectfilter);
                         });
                     })
                 }
@@ -121,7 +121,7 @@ $(document).ready(function () {
                                 publication.year,
                                 publication.title[0].text,
                                 publication.event_title,
-                                publication.event_location ? ', ' + publication.event_location: '',
+                                publication.event_location ? ', ' + publication.event_location : '',
                                 publication.uri
                             );
                             break;
@@ -181,7 +181,7 @@ $(document).ready(function () {
 
                 console.log(_.uniq(_.pluck(data, 'extended_type')).sort());
 
-                if ( $('ul.level-2.open').length > 0  ) {
+                if ($('ul.level-2.open').length > 0) {
                     $ul = $('ul.level-2.open');
                 } else {
                     $ul = $('<ul>');
@@ -190,23 +190,24 @@ $(document).ready(function () {
 
                 $ul.addClass('yearnav');
 
+
+                function showYear(ev) {
+                    if (ev) {
+                        ev.preventDefault();
+                    }
+                    var year = $(this).attr('data-show') || $ul.children().first().attr('data-show');
+                    $el.find('[data-year]').hide();
+                    $el.find('[data-year="' + year + '"]').show();
+                }
+
                 _.map(_.compact(_.uniq(_.pluck(data, 'yeargroup'))).sort().reverse(), function (d) {
                     var $li = $('<li class="yearnav" data-show="' + d + '"><a href="#">[ ' + d + ' ]</a></li>');
-                    $li.click(function (ev) {
-                        ev.preventDefault();
-                        var year = $(this).attr('data-show');
-                        $el.find('[data-year]').hide();
-                        $el.find('[data-year="' + year + '"]').show();
-                    });
+                    $li.click(showYear);
                     $ul.append($li);
                 });
 
-                //$el.prepend($ul);
-
-                //$('ul.level-2.open').append($ul);
-
-                $ul.children().first().click();
-                if ( callback ) {
+                showYear();
+                if (callback) {
                     callback(null, data);
                 }
             });
@@ -219,6 +220,7 @@ $(document).ready(function () {
     $('[data-boris]').text('Loading from BORIS...');
     $('[data-boris]').iwiboris();
 });
+
 
 function compactNames(names) {
     return _.compact(_.map(names, function (d) {
