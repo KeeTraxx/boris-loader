@@ -195,7 +195,7 @@ $(document).ready(function () {
                     if (ev) {
                         ev.preventDefault();
                     }
-                    var year = $(this).attr('data-show') || $ul.children().first().attr('data-show');
+                    var year = $(this).attr('data-show') || $ul.children('.yearnav').first().attr('data-show');
                     $el.find('[data-year]').hide();
                     $el.find('[data-year="' + year + '"]').show();
                 }
