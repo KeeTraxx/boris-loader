@@ -44,6 +44,14 @@ $(document).ready(function () {
                     })
                 }
 
+                var lastCategory = '';
+
+                if ($el.attr('data-boris-layout') == 'category') {
+                    data = _.sortBy(data, function(d){
+                        return d.extended_type;
+                    })
+                }
+
                 $.each(data, function (i, publication) {
 
                     publication.compact_contributors = compactNames(publication.contributors).join(', ');
@@ -59,6 +67,15 @@ $(document).ready(function () {
                     $li.attr('data-year', publication.yeargroup);
                     $li.attr('data-extended_type', publication.extended_type);
                     var html = '';
+
+
+                    if ($el.attr('data-boris-layout') == 'category' && lastCategory != publication.extended_type) {
+                        $el.append('<h3>' + publication.extended_type + '</h3>');
+                        $ul = $('<ul/>');
+                        $el.append($ul);
+                        lastCategory = publication.extended_type;
+                    }
+
                     switch (publication.extended_type) {
                         case "article_contribution":
                         case "article_journal":
@@ -219,7 +236,6 @@ $(document).ready(function () {
     $('[data-boris]').text('Loading from BORIS...');
     $('[data-boris]').iwiboris();
 });
-
 
 function compactNames(names) {
     return _.compact(_.map(names, function (d) {
