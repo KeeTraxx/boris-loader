@@ -1,4 +1,4 @@
-angular.module('boris-loader', ['boris-tpl'])
+angular.module('boris-loader', ['boris-tpl','boris-translation'])
     .directive('boris', ['$http', '$window', '$filter', function ($http, $window, $filter) {
         return {
             link: function ($scope, el, attrs) {
@@ -58,10 +58,11 @@ angular.module('boris-loader', ['boris-tpl'])
             '<ul class="publications">' +
             //'<li ng-repeat="(extended_type,publications) in byType = (data | project: project | year: year | groupBy: \'extended_type\')">' +
             '<li ng-repeat="(extended_type,publications) in getPublications()">' +
-            '<h5>{{extended_type}} ({{publications.length}})</h5>' +
+            '<h5>{{extended_type | translate}} ({{publications.length}})</h5>' +
             '<ul>' +
             '<li ng-repeat="publication in publications" ng-include="publication.template"></li>' +
             '</ul>' +
+            '<hr class="boris">' +
             '</li>' +
             '</ul>'
         }
