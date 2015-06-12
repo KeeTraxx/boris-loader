@@ -5,7 +5,7 @@ angular.module('boris-loader', ['boris-tpl','boris-translation'])
 
                 // inject CSS
                 angular.element(document.querySelector('head'))
-                    .append('<link rel="stylesheet" href="//' + (window.borisdev ? '' : 'cdn.') + 'rawgit.com/keetraxx/boris-loader/zms3/boris.css" type="text/css" />');
+                    .append('<link rel="stylesheet" href="//' + (window.borisdev ? '' : 'cdn.') + 'rawgit.com/keetraxx/boris-loader/3.0/boris.css" type="text/css" />');
 
                 var c = $window.angular.callbacks.counter.toString(36);
                 $window['angularcallbacks_' + c] = function (data) {
@@ -15,7 +15,7 @@ angular.module('boris-loader', ['boris-tpl','boris-translation'])
 
                 var url = attrs.boris + '?callback=JSON_CALLBACK';
 
-                $scope.project = attrs['boris-project'];
+                $scope.project = attrs['project'];
 
                 $http.jsonp(url).success(function (data) {
                     $scope.data = _.map(data, function (d) {
