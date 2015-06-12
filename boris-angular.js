@@ -44,6 +44,10 @@ angular.module('boris-loader', ['boris-tpl','boris-translation'])
                 $scope.getPublications = function() {
                     if ( $scope.project != $scope.oldProject || $scope.year != $scope.oldYear ) {
                         var results = $filter('project')($scope.data, $scope.project);
+                        $scope.years = _.uniq(_.pluck(results, 'year')).sort();
+                        if ( $scope.years.indexOf($scope.year) < 0 ) {
+                            $scope.year = $scope.years[$scope.years.length-1];
+                        }
                         results = $filter('year')(results, $scope.year);
                         $scope.filtered = $filter('groupBy')(results, 'extended_type');
                         $scope.oldProject = $scope.project;
