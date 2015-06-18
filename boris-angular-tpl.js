@@ -1,14 +1,4 @@
 angular.module('boris-tpl',[]).run(function ($templateCache) {
-    $templateCache.put('conference_item_paper',
-        '<span class="authors">{{publication.compact_creators || publication.compact_contributors}}</span> ' +
-        '<span class="year">({{publication.year}})</span>. ' +
-        '<span class="title">{{publication.title[0].text}}</span>. ' +
-        '<span class="publication" ng-show="publication.publication">{{publication.publication}}</span><span ng-show="publication.publication">, </span>' +
-        '<span class="volume" ng-show="publication.volume">{{publication.volume}}</span> ' +
-        '<span class="number" ng-show="publication.number">({{publication.number}})</span> ' +
-        '<span class="pagerange" ng-show="publication.pagerange">pp. {{publication.pagerange}}.</span> ' +
-        '<a href="{{publication.uri}}">[&nbsp;link&nbsp;]</a>');
-
     $templateCache.put('article_contribution',
         '<span class="authors">{{publication.compact_creators || publication.compact_contributors}}</span> ' +
         '<span class="year">({{publication.year}})</span>. ' +

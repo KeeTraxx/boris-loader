@@ -20,6 +20,9 @@ angular.module('boris-loader', ['boris-tpl','boris-translation'])
                 $http.jsonp(url).success(function (data) {
                     $scope.data = _.map(data, function (d) {
                         d.subtype = d[d.type.replace('_item', '') + '_type'] || '';
+                        if (d.type == 'conference_item') {
+                            d.type = 'conference';
+                        }
                         d.extended_type = _.compact([d.type, d.subtype]).join('_');
                         d.template = templateMappings(d);
                         d.year = String(d.date).match(/1|2\d{3}/)[0];
