@@ -42,7 +42,7 @@ angular.module('boris-tpl',[]).run(function ($templateCache) {
         '<span class="authors">{{publication.compact_creators || publication.compact_contributors}}</span> ' +
         '<span class="year">({{publication.year}})</span>. ' +
         '<span class="title">{{publication.title[0].text}}</span>. ' +
-        '<span class="event_title">{{publication.event_title}}</span> ' +
+        '<span class="event_title">{{publication.event_title}}</span>. ' +
         '<span class="event_location" ng-show="publication.event_location">{{publication.event_location}}</span>. ' +
         '<a href="{{publication.uri}}">[&nbsp;link&nbsp;]</a>');
 
