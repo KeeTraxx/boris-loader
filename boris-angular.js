@@ -65,7 +65,7 @@ angular.module('boris-loader', ['boris-tpl','boris-translation'])
             '<ul class="publications">' +
             //'<li ng-repeat="(extended_type,publications) in byType = (data | project: project | year: year | groupBy: \'extended_type\')">' +
             '<li ng-repeat="(extended_type,publications) in getPublications()">' +
-            '<h5>{{extended_type | translate}} ({{publications.length}})</h5>' +
+            '<h5>{{extended_type | translate}}</h5>' +
             '<ul>' +
             '<li ng-repeat="publication in publications" ng-include="publication.template"></li>' +
             '</ul>' +
