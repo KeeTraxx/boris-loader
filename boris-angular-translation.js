@@ -4,8 +4,8 @@ angular.module('boris-translation', ['pascalprecht.translate'])
         $translateProvider.useSanitizeValueStrategy('escape');
 
         $translateProvider.translations('en', {
-            "conference_item_paper" : 'Conference paper',
-            "conference_item_abstract": 'Conference abstract',
+            "conference_paper" : 'Conference paper',
+            "conference_abstract": 'Conference abstract',
             "article_journal": 'Journal article',
             "book_section_chapter": 'Book chapter',
             "magazine_article": 'Magazine article',
