@@ -1,4 +1,4 @@
-angular.module('boris-tpl',[]).run(function ($templateCache) {
+angular.module('boris-tpl', []).run(function ($templateCache) {
     $templateCache.put('article_contribution',
         '<span class="authors">{{publication.compact_creators || publication.compact_contributors}}</span> ' +
         '<span class="year">({{publication.year}})</span>. ' +
@@ -78,5 +78,30 @@ angular.module('boris-tpl',[]).run(function ($templateCache) {
         '<span class="publisher" ng-show="publication.publisher">, {{publication.publisher}}</span>. ' +
         '<a href="{{publication.uri}}">[&nbsp;link&nbsp;]</a>');
 
+
+    $templateCache.put('default',
+        '<ul class="yearnav inline"><li class="yearnav" ng-repeat="y in years | reverse"><a href="" ng-click="setYear(y)">[ {{y}} ]</a></li></ul>' +
+        '<br style="clear:both" />' +
+        '<ul class="publications">' +
+            //'<li ng-repeat="(extended_type,publications) in byType = (data | project: project | year: year | groupBy: \'extended_type\')">' +
+        '<li ng-repeat="(extended_type,publications) in getPublications()">' +
+        '<h5>{{extended_type | translate}}</h5>' +
+        '<ul>' +
+        '<li ng-repeat="publication in publications" ng-include="publication.template"></li>' +
+        '</ul>' +
+        '<hr class="boris">' +
+        '</li>' +
+        '</ul>');
+
+    $templateCache.put('all',
+        '<ul class="publications">' +
+        '<li ng-repeat="(extended_type,publications) in getPublications()">' +
+        '<h5>{{extended_type | translate}}</h5>' +
+        '<ul>' +
+        '<li ng-repeat="publication in publications" ng-include="publication.template"></li>' +
+        '</ul>' +
+        '<hr class="boris">' +
+        '</li>' +
+        '</ul>' );
 
 });

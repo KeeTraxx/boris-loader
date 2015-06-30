@@ -1,4 +1,4 @@
-angular.module('boris-loader', ['boris-tpl','boris-translation'])
+angular.module('boris-loader', ['boris-tpl', 'boris-translation'])
     .directive('boris', ['$http', '$window', '$filter', function ($http, $window, $filter) {
         return {
             link: function ($scope, el, attrs) {
@@ -12,6 +12,10 @@ angular.module('boris-loader', ['boris-tpl','boris-translation'])
                     $window.angular.callbacks['_' + c](data);
                     delete $window['angularcallbacks_' + c];
                 };
+
+                var template = attrs.hasOwnProperty('template') ? attrs.template : 'default';
+
+                console.log(template);
 
                 var url = attrs.boris + '?callback=JSON_CALLBACK';
 
@@ -40,18 +44,22 @@ angular.module('boris-loader', ['boris-tpl','boris-translation'])
 
                 });
 
-                $scope.setYear = function(year) {
+                $scope.setYear = function (year) {
                     $scope.year = year;
                 };
 
-                $scope.getPublications = function() {
-                    if ( $scope.project != $scope.oldProject || $scope.year != $scope.oldYear ) {
+                $scope.getPublications = function () {
+                    if ($scope.project != $scope.oldProject || $scope.year != $scope.oldYear) {
                         var results = $filter('project')($scope.data, $scope.project);
-                        $scope.years = _.uniq(_.pluck(results, 'year')).sort();
-                        if ( $scope.years.indexOf($scope.year) < 0 ) {
-                            $scope.year = $scope.years[$scope.years.length-1];
+
+                        if (template == 'default') {
+                            $scope.years = _.uniq(_.pluck(results, 'year')).sort();
+                            if ($scope.years.indexOf($scope.year) < 0) {
+                                $scope.year = $scope.years[$scope.years.length - 1];
+                            }
+                            results = $filter('year')(results, $scope.year);
                         }
-                        results = $filter('year')(results, $scope.year);
+
                         $scope.filtered = $filter('groupBy')(results, 'extended_type');
                         $scope.oldProject = $scope.project;
                         $scope.oldYear = $scope.year;
@@ -60,18 +68,9 @@ angular.module('boris-loader', ['boris-tpl','boris-translation'])
                 };
 
             },
-            template: '<ul class="yearnav inline"><li class="yearnav" ng-repeat="y in years | reverse"><a href="" ng-click="setYear(y)">[ {{y}} ]</a></li></ul>' +
-            '<br style="clear:both" />' +
-            '<ul class="publications">' +
-            //'<li ng-repeat="(extended_type,publications) in byType = (data | project: project | year: year | groupBy: \'extended_type\')">' +
-            '<li ng-repeat="(extended_type,publications) in getPublications()">' +
-            '<h5>{{extended_type | translate}}</h5>' +
-            '<ul>' +
-            '<li ng-repeat="publication in publications" ng-include="publication.template"></li>' +
-            '</ul>' +
-            '<hr class="boris">' +
-            '</li>' +
-            '</ul>'
+            templateUrl: function(el, attrs) {
+                return attrs.hasOwnProperty('template') ? attrs.template : 'default';
+            }
         }
     }])
     .filter('project', [function () {
@@ -100,9 +99,9 @@ angular.module('boris-loader', ['boris-tpl','boris-translation'])
             }
         };
     }])
-    .filter('groupBy',[function(){
+    .filter('groupBy', [function () {
         return function (array, field) {
-            return _.groupBy(array, function(d){
+            return _.groupBy(array, function (d) {
                 return d[field];
             });
         }
