@@ -10,7 +10,7 @@ angular.module('boris-loader', ['boris-tpl', 'boris-translation'])
 
                 // inject CSS
                 angular.element(document.querySelector('head'))
-                    .append('<link rel="stylesheet" href="//' + (window.borisdev ? '' : 'cdn.') + 'rawgit.com/keetraxx/boris-loader/3.0/boris.css" type="text/css" />');
+                    .append('<link rel="stylesheet" href="//keetraxx.github.io/boris-loader/boris.css" type="text/css" />');
 
                 var c = $window.angular.callbacks.counter.toString(36);
                 $window['angularcallbacks_' + c] = function (data) {
