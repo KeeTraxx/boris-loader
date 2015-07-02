@@ -3,6 +3,11 @@ angular.module('boris-loader', ['boris-tpl', 'boris-translation'])
         return {
             link: function ($scope, el, attrs) {
 
+                if (document.querySelector('header span.product')) {
+                    // ZMS detected...
+                    return;
+                }
+
                 // inject CSS
                 angular.element(document.querySelector('head'))
                     .append('<link rel="stylesheet" href="//' + (window.borisdev ? '' : 'cdn.') + 'rawgit.com/keetraxx/boris-loader/3.0/boris.css" type="text/css" />');
