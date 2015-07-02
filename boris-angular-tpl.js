@@ -80,7 +80,7 @@ angular.module('boris-tpl', []).run(function ($templateCache) {
 
 
     $templateCache.put('default',
-        '<div ng-hide="filtered" class="preloader">Loading from BORIS...</div>' +
+        '<div ng-hide="data" class="preloader">Loading from BORIS...</div>' +
         '<ul class="yearnav inline"><li class="yearnav" ng-repeat="y in years | reverse"><a href="" ng-click="setYear(y)">[ {{y}} ]</a></li></ul>' +
         '<br style="clear:both" />' +
         '<ul class="publications">' +
@@ -95,7 +95,7 @@ angular.module('boris-tpl', []).run(function ($templateCache) {
         '</ul>');
 
     $templateCache.put('all',
-        '<div ng-hide="filtered" class="preloader">Loading from BORIS...</div>' +
+        '<div ng-hide="data" class="preloader">Loading from BORIS...</div>' +
         '<ul class="publications">' +
         '<li ng-repeat="(extended_type,publications) in getPublications()">' +
         '<h5>{{extended_type | translate}}</h5>' +
