@@ -1,11 +1,18 @@
 angular.module('boris-loader', ['boris-tpl', 'boris-translation'])
-    .directive('boris', ['$http', '$window', '$filter', function ($http, $window, $filter) {
+    .directive('boris', ['$http', '$window', '$filter', '$translate', function ($http, $window, $filter, $translate) {
         return {
             link: function ($scope, el, attrs) {
 
                 if (document.querySelector('header span.product')) {
                     // ZMS detected...
                     return;
+                }
+
+                // Language autodetection
+                var langElement = document.querySelector('#nav-lang li a.active');
+
+                if (langElement) {
+                    $translate.use(langElement.innerHTML.toLowerCase());
                 }
 
                 // inject CSS
@@ -73,7 +80,7 @@ angular.module('boris-loader', ['boris-tpl', 'boris-translation'])
                 };
 
             },
-            templateUrl: function(el, attrs) {
+            templateUrl: function (el, attrs) {
                 return attrs.hasOwnProperty('template') ? attrs.template : 'default';
             }
         }
