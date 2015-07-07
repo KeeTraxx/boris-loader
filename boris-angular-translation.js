@@ -11,12 +11,13 @@ angular.module('boris-translation', ['pascalprecht.translate'])
       "magazine_article": 'Magazine article',
       "journal_series_series": 'Journal series',
       "working_paper": 'Working paper',
-      "thesis_dissertation": 'Dissertation or thesis',
-      "book_monograph": 'Book monograph',
-      "book_textbook": 'Book textbook',
+      "thesis_dissertation": 'Dissertation',
+      "book_monograph": 'Monograph',
+      "book_textbook": 'Textbook',
       "report_report": 'Report',
       "conference_item_speech": 'Conference speech',
       "book_section_contribution": 'Book section contribution',
+      "book_contribution": 'Book contribution',
       "article_contribution": 'Article contribution',
       "book_ed_volume": 'Book edition volume',
       "book_section_encyclopedia": 'Encyclopedia contribution'
@@ -24,21 +25,22 @@ angular.module('boris-translation', ['pascalprecht.translate'])
 
     $translateProvider.translations('de', {
       "conference_paper": 'Konferenzbeitrag',
-      "conference_abstract": 'Konferenzauszug',
+      "conference_abstract": 'Konferenzkurzbeitrag',
       "article_journal": 'Zeitschriftenartikel',
-      "book_section_chapter": 'Buchbeitrag',
+      "book_section_chapter": 'Buchkapitel',
       "magazine_article": 'Zeitungs- oder Magazinartikel',
       "journal_series_series": 'Zeitschriftenreihe',
       "working_paper": 'Arbeitsbericht',
       "thesis_dissertation": 'Dissertation',
-      "book_monograph": 'Buch',
+      "book_monograph": 'Monographie',
       "book_textbook": 'Buch',
       "report_report": 'Bericht',
       "conference_item_speech": 'Konferenzvortrag',
-      "book_section_contribution": 'Buchbeitrag',
-      "article_contribution": 'Zeitschriftenartikel',
-      "book_ed_volume": 'Buch',
-      "book_section_encyclopedia": 'Buchbeitrag'
+      "book_section_contribution": 'Buchkapitelbeitrag',
+      "book_contribution": 'Buchbeitrag',
+      "article_contribution": 'Zeitschriftenbeitrag',
+      "book_ed_volume": 'Sammelband',
+      "book_section_encyclopedia": 'Encyclopedia contribution'
     });
 
     $translateProvider.preferredLanguage('en');
