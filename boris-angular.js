@@ -37,9 +37,14 @@ angular.module('boris-loader', ['boris-tpl', 'boris-translation'])
                     $scope.data = _.map(data, function (d) {
                         d.subtype = d[d.type.replace('_item', '') + '_type'] || '';
                         if (d.type == 'conference_item') {
-                            d.type = 'conference';
+                          d.type = 'conference';
                         }
                         d.extended_type = _.compact([d.type, d.subtype]).join('_');
+                        if (d.extended_type == 'conference_abstract') {
+                          d.extended_type = 'conference_paper';
+                        } else if (d.extended_type == 'book_monograph') {
+                          d.extended_type = 'book_textbook';
+                        }
                         d.template = templateMappings(d);
                         d.year = String(d.date).match(/1|2\d{3}/)[0];
 
