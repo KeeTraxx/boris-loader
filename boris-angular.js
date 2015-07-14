@@ -43,7 +43,7 @@ angular.module('boris-loader', ['boris-tpl', 'boris-translation'])
                         d.template = templateMappings(d);
                         d.year = String(d.date).match(/1|2\d{3}/)[0];
 
-                        d.compact_contributors = compactNames(d.contributors).join(', ');
+                        d.compact_contributors = compactNames(_.filter(d.contributors, function(d){return d.type != 'ADVISOR'})).join(', ');
                         d.compact_editors = compactNames(d.editors).join(', ');
                         d.compact_creators = compactNames(d.creators).join(', ');
                         return d;

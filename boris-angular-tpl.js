@@ -56,7 +56,7 @@ angular.module('boris-tpl', []).run(function ($templateCache) {
         '<a href="{{publication.uri}}">[&nbsp;link&nbsp;]</a>');
 
     $templateCache.put('thesis_dissertation',
-        '<span class="authors">{{publication.compact_creators || publication.compact_contributors}}</span> ' +
+        '<span class="authors">{{publication.compact_contributors || publication.compact_creators}}</span> ' +
         '<span class="year">({{publication.year}})</span>. ' +
         '<span class="title">{{publication.title[0].text}}</span> ' +
         '(Doctoral dissertation). ' +
