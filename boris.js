@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    _.string = s;
+
     $('head').append('<link rel="stylesheet" href="//' + (window.borisdev ? '' : 'cdn.') + 'rawgit.com/keetraxx/boris-loader/zms3/boris.css" type="text/css" />');
 
     $.fn.iwiboris = function (callback) {
