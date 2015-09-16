@@ -44,7 +44,7 @@ angular.module('boris-translation', ['pascalprecht.translate'])
       "book_ed_volume": 'Sammelband',
       "book_section_encyclopedia": 'Encyclopedia contribution',
       "article_review": "Rezension",
-      "journal_series_journal": "J"
+      "journal_series_journal": "Zeitschriftenserie"
     });
 
     $translateProvider.preferredLanguage('en');
