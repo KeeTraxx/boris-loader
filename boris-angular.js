@@ -138,11 +138,13 @@ function templateMappings(publication) {
     switch (publication.extended_type) {
         case "article_contribution":
         case "article_journal":
+        case "article_review":
             return "article_contribution";
         case "book_ed_volume":
         case "book_monograph":
         case "book_textbook":
         case "journal_series_series":
+        case "journal_series_journal":
             return 'book_ed_volume';
         case "book_section_chapter":
         case "book_section_contribution":

@@ -20,7 +20,9 @@ angular.module('boris-translation', ['pascalprecht.translate'])
       "book_contribution": 'Book contribution',
       "article_contribution": 'Article contribution',
       "book_ed_volume": 'Book edition volume',
-      "book_section_encyclopedia": 'Encyclopedia contribution'
+      "book_section_encyclopedia": 'Encyclopedia contribution',
+      "article_review": "Article review",
+      "journal_series_journal": "Journal series"
     });
 
     $translateProvider.translations('de', {
@@ -40,7 +42,9 @@ angular.module('boris-translation', ['pascalprecht.translate'])
       "book_contribution": 'Buchbeitrag',
       "article_contribution": 'Zeitschriftenbeitrag',
       "book_ed_volume": 'Sammelband',
-      "book_section_encyclopedia": 'Encyclopedia contribution'
+      "book_section_encyclopedia": 'Encyclopedia contribution',
+      "article_review": "Rezension",
+      "journal_series_journal": "J"
     });
 
     $translateProvider.preferredLanguage('en');
